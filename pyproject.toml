@@ -1,0 +1,42 @@
+[project]
+name = "dev-tooling-trends-2026"
+version = "1.0.0"
+description = "State of Developer Tooling 2026 — a living report on the trends shaping how we build software in 2026"
+readme = "README.md"
+license = { file = "LICENSE" }
+authors = [
+    { name = "Hussain Al-Saibai", email = "hussain.alsaibai@gmail.com" },
+]
+keywords = [
+    "developer-tooling",
+    "ai-agents",
+    "mcp",
+    "model-context-protocol",
+    "agentic-workflows",
+    "observability",
+    "tiny-libraries",
+    "zero-dependency",
+    "developer-trends",
+    "2026",
+]
+requires-python = ">=3.8"
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Topic :: Software Development",
+    "Topic :: Documentation",
+]
+
+[project.urls]
+Homepage = "https://github.com/hussain-alsaibai/dev-tooling-trends-2026"
+"Report Issues" = "https://github.com/hussain-alsaibai/dev-tooling-trends-2026/issues"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+py-modules = []
