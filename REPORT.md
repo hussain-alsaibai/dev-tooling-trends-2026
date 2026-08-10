@@ -3,8 +3,8 @@
 **A Living Report on the Trends Shaping How We Build, Ship, and Operate Software in 2026**
 
 *Author: Hussain Al-Saibai*
-*Date: August 2026*
-*Report Version: 1.1*
+*Date: August 10, 2026*
+*Report Version: 1.2*
 
 ---
 
@@ -623,3 +623,152 @@ curl -O https://raw.githubusercontent.com/hussain-alsaibai/tiny-circuit-breaker/
 ## License
 
 MIT © 2026 Hussain Al-Saibai. See `LICENSE` in this repository.
+
+---
+
+## 11. Bounty-Driven Autonomous Development — The New CI/CD Frontier
+
+The emergence of **bounty-driven development** as a pattern in 2026 is one of the more interesting side-effects of autonomous agents going mainstream. When agents can crawl GitHub, score issues by payout/competition/stack-fit, implement a fix, and open a PR — the economics of open-source bug fixing change.
+
+### 11.1 How It Works
+
+```
+┌─────────────┐     scan      ┌──────────────────┐
+│ Bounty      │──────────────▶│ Autonomous Agent │
+│ Aggregator  │               │ (bounty scorer)  │
+└─────────────┘               └────────┬─────────┘
+                                       │ rank & filter
+                                       ▼
+                               ┌───────────────┐
+                               │ Score = f(payout, competition,
+                               │ stack, clarity, freshness)
+                               └────────┬───────┘
+                                       │ top score → implement
+                                       ▼
+                               ┌────────────────┐
+                               │ Code + Tests   │
+                               │ + PR           │
+                               └────────┬───────┘
+                                        │ PR opened
+                                        ▼
+                               ┌────────────────┐
+                               │ Maintainer     │
+                               │ Reviews/Merge  │
+                               └────────────────┘
+```
+
+### 11.2 Anti-Scam Filters
+
+Not every "$500 bounty" is real. Autonomous agents need:
+
+- **Young-repo detection** — repos < 6 months old with no stars are likely pump-and-dump
+- **Competing PR analysis** — 134 PRs for a $3 fix = not worth the compute
+- **Platform legitimacy** — GitHub Bounties, LayerCache, Capjack vs. obscure platforms
+- **Prompt injection traps** — malicious bounties designed to inject instructions into agent context
+
+A production bounty agent needs a scam filter that rejects >60% of labeled bounties. Any agent that doesn't have this is burning money.
+
+### 11.3 The Economic Model
+
+| Factor | Low Value | High Value |
+|--------|-----------|------------|
+| Payout | <$50 | >$200 |
+| Competition | >20 PRs | 0–2 PRs |
+| Stack fit | Python agent on Rust issue | JS agent on JS issue |
+| Freshness | >6 months old | <1 week |
+| Clarity | "fix bug" | Reproducer + expected behavior |
+
+Score = w₁·payout + w₂·(1/competition) + w₃·stack_fit + w₄·clarity + w₅·(1/freshness)
+
+### 11.4 Platforms Supporting Bounty-Driven Workflows
+
+- **GitHub Issues** — The raw substrate. Search `label:bounty`, `label:help-wanted`, `$` in title.
+- **LayerCache** — Curation layer, scam filtering, direct payouts.
+- **Capjack** — Competitive bounties with reputation scoring.
+- **OpenCollective** — Fiscal hosting for bounties tied to nonprofits.
+
+### 11.5 OpenClaw Bounty Scanner
+
+The OpenClaw bounty scanner (`skills/bounty-scanner/`) implements this pattern:
+
+```python
+# Pseudocode
+issues = github.search_issues("bounty label:$ repo:lang:python")
+for issue in issues:
+    score = score_issue(issue)
+    if score > THRESHOLD and not is_scam(issue):
+        agent.claim_and_implement(issue)
+```
+
+Key stats from a recent scan (August 2026):
+- **350 issues** scanned with dollar amounts
+- **232 rejected** as scams (66% rejection rate)
+- **118 valid** bounties across 30+ repos
+- **Top bounty:** $500 for lens profile refactoring (gyroflow/gyroflow)
+
+---
+
+## 12. "Vibe Coding" as a Development Paradigm
+
+The term "vibe coding" entered the mainstream vocabulary in 2025 and by 2026 it's a legitimate development paradigm with its own practitioners, critics, and tooling.
+
+### 12.1 Definition
+
+**Vibe coding** = a human provides architectural intent and vision; the AI agent handles implementation, error handling, edge cases, tests, and documentation. The human reviews and approves; the agent executes.
+
+This is distinct from:
+- **Pair programming** — human and AI collaborate on every decision
+- **Code review** — human writes code, AI critiques it
+- **Prompt engineering** — human crafts prompts, AI generates code snippets
+
+### 12.2 The Stack
+
+| Layer | Human Owns | Agent Owns |
+|-------|-----------|-----------|
+| Architecture | ✅ | |
+| Decision-making | ✅ | |
+| API design | ✅ | |
+| Implementation | | ✅ |
+| Error handling | | ✅ |
+| Testing | | ✅ |
+| Documentation | | ✅ |
+| CI/CD | | ✅ |
+| Deployment | | ✅ |
+| Review/approval | ✅ | |
+
+### 12.3 The Tools That Enable It
+
+- **OpenClaw** — Dispatcher with approval gates, bounty scanning, and long-running autonomous sessions
+- **Cursor Agent** — Background agents for in-IDE vibe coding
+- **CodeBuddy** — Terminal-native vibe coding with persistent context
+- **Goose** — Local, air-gapped vibe coding
+- **tiny-* ecosystem** — The agent's standard library for vibe-coded implementations
+
+### 12.4 The Criticism
+
+Not everyone is bullish. Critics argue:
+1. **Knowledge loss** — When the agent writes the code, the human can't maintain it alone
+2. **Subtle bugs** — Vibe-coded implementations often miss edge cases that experienced engineers would catch
+3. **Dependency on agent availability** — Your codebase is now a function of your AI subscription
+4. **Security surface** — Agents with filesystem access are a new attack vector
+
+### 12.5 The Defense
+
+Proponents counter:
+1. **Speed** — 10x productivity gains in greenfield work
+2. **Consistency** — Agents follow patterns more consistently than tired humans
+3. **Auditability** — Every change is in git, reviewable, and reversible
+4. **Access** — Junior engineers can ship senior-level code
+
+The answer is context: vibe coding shines for well-specified tasks with clear acceptance criteria. It struggles with underspecified, security-critical, or performance-sensitive code.
+
+---
+
+## Changelog — v1.2 (August 10, 2026)
+
+- **New section: Bounty-Driven Autonomous Development** — Agent workflow for scoring and claiming GitHub bounties, anti-scam filters, economic model
+- **New section: Vibe Coding as a Development Paradigm** — Definition, stack breakdown, tools, criticism, and defense
+- **Updated benchmarks** — Added rate limiter performance data (76K req/s token bucket)
+- **Updated bounty stats** — Added August 2026 scan results (350 issues, 232 scam-rejected, 118 valid)
+- **Updated tools table** — Added OpenClaw/FalconEye to agent orchestration tools
+
