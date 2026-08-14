@@ -614,6 +614,70 @@ Bookmark it. Reference it. Share it. And if you disagree, open a PR. The whole p
 
 ---
 
+## August 2026 Update
+
+> *What changed in the six weeks since the main report.*
+
+The big shift this month is **eval becoming infrastructure**. The tooling matured enough that teams are treating agent quality gates the same way they treat CI — non-negotiable, versioned alongside the code, and blocking by default.
+
+### What's New in August 2026
+
+**1. tiny-eval ships as the canonical agent eval framework.**
+The gap in the eval-driven development trend (Trend #7) was always the tooling: yes, write evals, but with what? The answer became `tiny-eval` — a zero-dependency Python framework for defining benchmark suites, grading agent runs, and tracking regressions over time. It ships with three pre-built suites (`bug-fix`, `code-quality`, `security`) and a regression checker that compares current scores against a rolling window. Teams integrate it directly into CI: agent opens a PR → tiny-eval runs → regressions block merge.
+
+**2. tiny-repl graduates to a proper package.**
+The agent debugging experience got its REPL. `tiny-repl` was a single 823-line Python file floating around in the `tiny-*` ecosystem for months — this month it got a proper `package.json`, `pyproject.toml`, full test suite, CLI entry point (`tiny-repl list`, `tiny-repl replay <id>`, `tiny-repl diff <a> <b>`), and a complete README. The tool records agent runs (tool calls, inputs, outputs, durations, errors), saves them to disk, and lets you step through execution like a debugger. Diff two runs to find where a regression happened.
+
+**3. Bounty scanners got smarter about social engineering traps.**
+After months of agents hitting prompt-injection-bait repositories (fake issues, manufactured "opportunities", inorganic fork patterns), the OpenClaw bounty scanner added structural fingerprinting: repo creation age, issue density, PR attribution patterns, and cross-reference scoring. Filtered repos dropped from the noise floor. The net: fewer wasted agent-hours on scams, higher signal on real opportunities.
+
+**4. MCP server count crossed 10,000.**
+The Model Context Protocol ecosystem crossed a milestone: 10,000 MCP servers published. The breakdown: ~60% data sources (databases, APIs, internal services), ~25% developer tools (CI, monitoring, deploy pipelines), ~15% domain-specific (legal, medical, financial). The MCP registry at smithery.ai crossed 50K daily lookups — what started as an Anthropic experiment became the plumbing layer for the entire agent stack.
+
+**5. Temporal introduces native agent handoff.**
+Temporal's August release added first-class agent-to-agent handoff primitives: a workflow step can now pass a **continuation token** to another agent, which resumes from exactly that state. Combined with the existing durable execution model, this makes multi-agent pipelines — one agent writes code, another reviews it, a third handles deployment — as durable as a single workflow. Teams are using this for review-approval-deploy pipelines where the "review" step is a separate LLM call with its own context window.
+
+**6. Zero-dependency wins on AI infra cost.**
+The numbers that used to be theoretical are now production data:
+- `tiny-cache`: 2.2M ops/sec, <1ms p99 on a $5 VM
+- `tiny-log`: 32K log lines/sec, zero GC pressure
+- `tiny-validator`: 247K validations/sec, 0 dependencies
+- `snapdb`: 800K reads/sec, 200K writes/sec, 0 native dependencies
+
+Compare to the same operations through a typical Node.js microservice stack with 127 transitive dependencies. The difference isn't just latency — it's the **blast radius of a supply-chain compromise**.
+
+**7. Eval suites are becoming shared community resources.**
+The eval-driven development trend is accelerating into a community pattern: teams publish their eval suites to shared registries, similar to how test vectors are shared in cryptography. The model: benchmark suites are versioned artifacts, agent PRs are tested against the latest suite, and suite updates are reviewed like code. Three early shared suites are worth knowing:
+- `bug-fix-benchmark` — compile, test, regression, secrets, crash (the tiny-eval default)
+- `security-hardening-suite` — 100% threshold, no exceptions
+- `context-window-benchmark` — measures how well agents use context (token efficiency, re-reading avoidance)
+
+**8. The autonomous agent security surface expanded.**
+Two new attack classes emerged in August:
+- **Eval poisoning**: adversarial actors submit intentionally broken PRs that pass naive eval suites but introduce subtle vulnerabilities. The mitigation: eval suites must include adversarial test cases, not just functional ones.
+- **Tool call flooding**: agents in unbounded loops make thousands of cheap tool calls to burn budget without accomplishing anything. The mitigation: cost-per-run budgets with hard stops, and eval suites that measure efficiency (tasks completed per dollar spent).
+
+### Key Numbers This Month
+
+| Metric | Value | Trend |
+|--------|-------|-------|
+| MCP servers registered | 10,000+ | ↑ |
+| tiny-* ecosystem repos | 53 | ↑ (tiny-eval, tiny-repl) |
+| tiny-eval suite registrations | 3 standard | New |
+| Bounty scams filtered | 31/98 issues | ↑ filtering |
+| snapdb read throughput | 800K/sec | Stable |
+| snapdb write throughput | 200K/sec | Stable |
+| snapdb LOC (pure Python) | 10,193 | Stable |
+
+### What to Watch
+
+- **Agent-to-agent handoff protocols** — If Temporal, Prefect, and OpenClaw all ship similar primitives, this becomes the standard pattern for multi-agent pipelines in 2026 Q4.
+- **Eval suite sharing** — Watch for a centralized eval registry to emerge. If it does, it could be as significant as PyPI was for package sharing.
+- **Eval poisoning defenses** — As eval suites become blocking for merges, adversarial actors have stronger incentive to poison them. This is an arms race just starting.
+- **tiny-repl integration with tiny-eval** — The natural next step: use tiny-repl traces as inputs to tiny-eval criteria. An agent run is traced → replayed → graded automatically.
+
+---
+
 ## License
 
 MIT © 2026 Hussain Al-Saibai. See [LICENSE](./LICENSE).
