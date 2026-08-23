@@ -681,3 +681,96 @@ Two new attack classes emerged in August:
 ## License
 
 MIT © 2026 Hussain Al-Saibai. See [LICENSE](./LICENSE).
+
+---
+
+*Updated: August 23, 2026*
+
+## August 2026 Update — tiny-* Ecosystem Expansion
+
+Three new tools shipped this week targeting the autonomous agent infrastructure gap:
+
+### tiny-task-runner — Async Task Pipeline
+
+[github.com/hussain-alsaibai/tiny-task-runner](https://github.com/hussain-alsaibai/tiny-task-runner)
+
+The missing piece between "I have 1000 tasks" and "I need to run them with retries, timeouts, concurrency limits, and dependency graphs." Built for agent pipelines where a task failing or timing out shouldn't cascade into the whole run collapsing.
+
+```python
+from tiny_task_runner import TaskRunner, task
+
+runner = TaskRunner(max_concurrency=20)
+
+@task(retries=3, backoff_base=2.0, timeout=30.0)
+async def call_llm(prompt: str) -> str:
+    ...
+
+results = await runner.run([call_llm(p) for p in prompts])
+```
+
+Key features: retry with exponential backoff, per-task timeouts, max concurrency limits, priority queue, DAG-based `run_dag()` for dependency graphs.
+
+### tiny-mq — In-Process Message Queue
+
+[github.com/hussain-alsaibai/tiny-mq](https://github.com/hussain-alsaibai/tiny-mq)
+
+Pub/sub + priority queues + dead-letter handling + RPC pattern — all in one file, zero dependencies. Agents need message passing between components, and spinning up Redis is overkill for in-process coordination.
+
+```python
+from tiny_mq import AsyncMessageQueue
+
+mq = AsyncMessageQueue()
+
+# Pub/sub — fan out to multiple consumers
+mq.subscribe("user.created", notify_slack)
+mq.subscribe("user.created", notify_email)
+mq.publish("user.created", {"user_id": 42})
+
+# RPC pattern — request/reply with timeout
+reply = await mq.call_async("math", {"expr": "2+2"}, timeout=5.0)
+```
+
+Supports: memory or disk-backed storage, priority queues, dead-letter queues, request/reply (RPC), async handlers.
+
+### tiny-statemachine — Behavior Tree State Machine
+
+[github.com/hussain-alsaibai/tiny-statemachine](https://github.com/hussain-alsaibai/tiny-statemachine)
+
+AI agents move through states constantly — `idle → thinking → acting → responding`. This gives you declarative state machines with guards, entry/exit actions, and hierarchical (nested) sub-states for complex agent behaviors.
+
+```python
+class AgentLoop(StateMachine):
+    initial = "idle"
+
+    @state(on_enter="log_state", on_exit="log_state")
+    def idle(self): pass
+    @state(on_enter="log_state", on_exit="log_state")
+    def thinking(self): pass
+
+    @transition("idle", "thinking", event="message_received")
+    def begin_thinking(self): ...
+
+sm = AgentSM()
+sm.trigger("message_received")
+print(sm.current)  # "thinking"
+```
+
+Supports: guards (conditional transitions), entry/exit callbacks, hierarchical sub-states, history tracking, introspectable current state for agent observability.
+
+### Why These Tools Fill a Gap
+
+The AI agent tooling landscape has three layers:
+
+| Layer | Tools | Gap |
+|-------|-------|-----|
+| **LLM / reasoning** | Anthropic, OpenAI, Grok | Saturated |
+| **Orchestration** | LangGraph, AutoGen, Temporal | Well-served |
+| **Agent primitives** | Retry, queue, state, task pipeline | Underserved, bloated deps |
+
+The `tiny-*` ecosystem owns the **agent primitives layer** — the plumbing that makes agents reliable in production. No dependencies means:
+- Audit in 30 minutes (one file)
+- No transitive supply-chain risk
+- Cold-start from zero (no `pip install` cascade)
+- Portable across environments (serverless, edge, embedded)
+
+This is the layer that matters for autonomous bounty hunters, self-hosted agents, and air-gapped deployments.
