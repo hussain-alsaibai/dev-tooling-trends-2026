@@ -4,6 +4,15 @@
 
 ---
 
+## Updates
+
+| Date | Theme |
+|------|-------|
+| [2026-08-29](daily-updates/2026-08-29.md) | Benchmark suite, tiny-agent v0.3.0 test coverage, new framework comparison report |
+| [2026-08-19](daily-updates/2026-08-19.md) | Resilience primitives, agent-grade observability, 10x dev tool bar |
+
+---
+
 ## Executive Summary
 
 2026 is the year the **autonomous engineer** stopped being a demo and started shipping production code. AI coding assistants graduated from autocomplete to long-running agents that open PRs, run CI, fix review comments, and close issues while you sleep. The **Model Context Protocol (MCP)** became the standard connector between agents and the rest of your stack — databases, APIs, file systems, internal tools — collapsing the integration sprawl that defined 2024–2025. Meanwhile, an undercurrent reaction formed: a **zero-dependency, stdlib-only** movement (the `tiny-*` ecosystem and its peers) that prizes auditability, sub-millisecond cold starts, and total supply-chain transparency over feature breadth. **Agentic workflow orchestration** matured into DAG-based pipelines with human approval gates, **observability for AI systems** became a first-class discipline with token budgets and LLM spans, and **security tooling** refocused on the agent threat model: prompt injection, secret leakage, sandboxed execution. This report walks through each shift, names the players, and gives you the numbers (32K log lines/sec, 247K validations/sec, 2.2M cache ops/sec) to anchor the conversation.
