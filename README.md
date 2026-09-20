@@ -1,7 +1,7 @@
 # State of Developer Tooling 2026
 
 [![Edition](https://img.shields.io/badge/edition-Q3%202026-blue.svg)](#q3-2026-update)
-[![Updated](https://img.shields.io/badge/updated-2026--08--30-green.svg)](#q3-2026-update)
+[![Updated](https://img.shields.io/badge/updated-2026--09--03-green.svg)](#q3-2026-update)
 [![Status](https://img.shields.io/badge/status-living%20report-orange.svg)](#)
 [![License](https://img.shields.io/badge/license-CC--BY--4.0-lightgrey.svg)](LICENSE)
 
@@ -13,6 +13,7 @@
 
 | Date | Theme |
 |------|-------|
+| [2026-09-03](reports/2026-09-03-dev-tooling-landscape.md) | September 2026 landscape: agent maturation, MCP at 10K servers, tiny-* at 40+ repos, eval as CI gate, OSS LLM cost collapse |
 | [2026-08-29](daily-updates/2026-08-29.md) | Benchmark suite, tiny-agent v0.3.0 test coverage, new framework comparison report |
 | [2026-08-19](daily-updates/2026-08-19.md) | Resilience primitives, agent-grade observability, 10x dev tool bar |
 
