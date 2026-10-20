@@ -13,6 +13,9 @@
 
 | Date | Theme |
 |------|-------|
+| [2026-09-22](reports/2026-09-22-developer-tools-landscape.md) | Late-Sept landscape: bounty-triage primitives, cost ledgers, skill-catalog linters, +175% PR merge rate |
+| [2026-09-22](daily-updates/2026-09-22.md) | Three new repos: tiny-bounty-queue, tiny-cost-ledger, tiny-skill-md (50 tests, 0 deps) |
+| [2026-09-04](reports/2026-09-04-dev-tooling-landscape.md) | MCP 10K servers, tiny-chain v0.2.0, eval-as-code, eval suite integration |
 | [2026-09-03](reports/2026-09-03-dev-tooling-landscape.md) | September 2026 landscape: agent maturation, MCP at 10K servers, tiny-* at 40+ repos, eval as CI gate, OSS LLM cost collapse |
 | [2026-08-29](daily-updates/2026-08-29.md) | Benchmark suite, tiny-agent v0.3.0 test coverage, new framework comparison report |
 | [2026-08-19](daily-updates/2026-08-19.md) | Resilience primitives, agent-grade observability, 10x dev tool bar |
