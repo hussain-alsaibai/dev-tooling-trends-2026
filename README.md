@@ -13,6 +13,7 @@
 
 | Date | Theme |
 |------|-------|
+| [2026-11-05](daily-updates/2026-11-05.md) | `#5414` closed as a duplicate of a closed issue — the consumer-side contract gap is unclaimed, and `tiny-mcp-client` now pins and diffs tool contracts |
 | [2026-11-04](daily-updates/2026-11-04.md) | New repo `tiny-worktree` for parallel-agent worktrees; the PyPI gap gets a denominator — exactly ONE of our 45 packages is published under a name we own |
 | [2026-11-02](daily-updates/2026-11-02.md) | Agent skills still own trending, `skillcheck` is now a credible incumbent in the SKILL.md niche, and our own READMEs were documenting APIs that never existed |
 | [2026-10-29](daily-updates/2026-10-29.md) | Agent skills dominate the trending page, MCP went remote-first, the October 15 SDK advisories are unclaimed |
