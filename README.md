@@ -13,6 +13,7 @@
 
 | Date | Theme |
 |------|-------|
+| [2026-11-06](reports/2026-11-06-verifying-release-artifacts.md) | **Verifying release artifacts** — census: 1 of 70 `tiny-*` repos recorded what was in its wheel; new `tiny-dist-audit` makes it 2, and four README claims were re-derived and corrected |
 | [2026-11-05](reports/2026-11-05-version-drift-unread-manifests.md) | **Version drift in unread manifests** — census of 170 repos: 0 of 19 npm manifests are ours, 6 names belong to other maintainers, and `tiny-audit` could not be imported on its own declared 3.8 floor |
 | [2026-11-05](daily-updates/2026-11-05.md) | `#5414` closed as a duplicate of a closed issue — the consumer-side contract gap is unclaimed, and `tiny-mcp-client` now pins and diffs tool contracts |
 | [2026-11-04](daily-updates/2026-11-04.md) | New repo `tiny-worktree` for parallel-agent worktrees; the PyPI gap gets a denominator — exactly ONE of our 45 packages is published under a name we own |
