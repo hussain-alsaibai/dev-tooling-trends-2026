@@ -13,6 +13,7 @@
 
 | Date | Theme |
 |------|-------|
+| [2026-11-10](reports/2026-11-10-install-line-census.md) | **The install line is a claim** — census of every `pip install` command across 54 fleet repos: 49 resolve to a 404, 4 install a *different maintainer's* package, 1 documents a sibling repo, and **0** install the repo whose README it is. Repaired 2 by pointing at the repository URL and executing it |
 | [2026-11-09](reports/2026-11-09-the-ecosystem-that-could-not-be-installed.md) | **The ecosystem that could not be installed** — census of the 25 packages advertised on *every* `tiny-*` README: 13 (52%) ship no packaging metadata, 3 tell users to `pip install` a name owned by another maintainer, and the one cross-library round-trip claim that was executed was false for every nested config |
 | [2026-11-07](reports/2026-11-07-capability-negotiation-is-the-mcp-gap.md) | **Capability negotiation is the MCP gap** — census of 65 Python repos: docs and a Python floor are 65/65, tests 62, CI 63, LICENSE 56, and **1** validates a peer's advertised capabilities before calling it; the guard is mutation-proved with 5 negative tests |
 | [2026-11-06](reports/2026-11-06-verifying-release-artifacts.md) | **Verifying release artifacts** — census: 1 of 70 `tiny-*` repos recorded what was in its wheel; new `tiny-dist-audit` makes it 2, and four README claims were re-derived and corrected |
